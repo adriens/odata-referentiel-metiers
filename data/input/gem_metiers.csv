@@ -1,4 +1,4 @@
-Nom Client,Id Neobrain Métier,Code Métier,Métier collaborateur,Famille métier,Sous-famille métier,Nombre de compétences du métier,Niveau de compétence moyen requis,Métier actif? 0/1,Métier actif?,Statut du métier
+NomClient,Id Neobrain Métier,Code Métier,Métier collaborateur,Famille métier,Sous-famille métier,Nombre de compétences du métier,Niveau de compétence moyen requis,Métier actif? 0/1,Métier actif?,Statut du métier
 OPT - NC,11041851,OP001,Chargé de soutien des réseaux de vente,Vente & relation client,,25,3.6,1,True,Publié
 OPT - NC,11041852,OP002,Chargé d'affaires,Vente & relation client,,17,3.0,1,True,Publié
 OPT - NC,11041853,OP003,Conseiller clientèle,Vente & relation client,,21,2.81,1,True,Publié
