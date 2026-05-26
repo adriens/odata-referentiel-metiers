@@ -40,7 +40,7 @@ jobs:
             --url="jdbc:duckdb:ref-metiers-opt-nc.duckdb" \
             --table-types=TABLE \
             --output-format=png \
-            --output-file=ref-metiers-opt-nc-schemacrawler.png
+            --output-file=dist/ref-metiers-opt-nc-schemacrawler.png
 
       - name: update output repository and push to develop
         if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
