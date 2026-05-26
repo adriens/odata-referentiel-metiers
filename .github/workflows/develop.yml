@@ -31,9 +31,9 @@ jobs:
       - name: Download DuckDB JDBC driver (musl/Alpine)
         run: |
           mkdir -p .github/schemacrawler/lib
-          curl -L "https://repo1.maven.org/maven2/org/duckdb/duckdb_jdbc/1.2.1/duckdb_jdbc-1.2.1-linux-amd64-musl.jar" \
+          curl -L "https://repo1.maven.org/maven2/org/duckdb/duckdb_jdbc/1.4.1.0/duckdb_jdbc-1.4.1.0-linux_amd64_musl.jar" \
             -o .github/schemacrawler/lib/duckdb_jdbc.jar
-            
+    
       - name: Run SchemaCrawler Action with specified command-line
         uses: schemacrawler/SchemaCrawler-Action@v17.11.1
         with:
@@ -43,10 +43,10 @@ jobs:
             --command=schema \
             --info-level=standard \
             --driver=org.duckdb.DuckDBDriver \
-            --url="jdbc:duckdb:ref-metiers-opt-nc.duckdb" \
+            --url=jdbc:duckdb:/github/workspace/dist/ref-metiers-opt-nc.duckdb \
             --table-types=TABLE \
             --output-format=png \
-            --output-file=dist/ref-metiers-opt-nc-schemacrawler.png
+            --output-file=/github/workspace/dist/ref-metiers-opt-nc.png
 
       - name: update output repository and push to develop
         if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
