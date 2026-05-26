@@ -1,0 +1,51 @@
+- id: schemacrawler.tools.linter.LinterForeignKeyWithNoIndexes
+  run: false
+
+- id: schemacrawler.tools.linter.LinterForeignKeyMismatch
+  run: false
+
+- id: schemacrawler.tools.linter.LinterRedundantIndexes
+  run: true
+
+- id: schemacrawler.tools.linter.LinterTableWithNoPrimaryKey
+  run: true
+  
+- id: schemacrawler.tools.linter.LinterTableWithNoSurrogatePrimaryKey
+  run: false
+
+- id: schemacrawler.tools.linter.LinterTableWithNoRemarks
+  run: true
+
+- id: schemacrawler.tools.linter.LinterTableEmpty
+  run: false
+
+- id: schemacrawler.tools.linter.LinterTableWithBadlyNamedColumns
+  run: true
+  config:
+    bad-column-names: "^.*\\.((?![a-z][a-z0-9_]*$)[^.]+)$"
+    
+- id: schemacrawler.tools.linter.LinterCatalogSql
+  run: true
+  config:
+    message: "Invalid table name. Should not contain special characters"
+    sql: |
+      SELECT table_name
+      FROM information_schema.tables
+      WHERE table_schema = 'main'
+        AND NOT REGEXP_MATCHES(
+          table_name,
+          '^[a-z][a-z0-9_]*$'
+        )
+      LIMIT 1
+
+- id: schemacrawler.tools.linter.LinterCatalogSql
+  run: true
+  config:
+    message: "id column must start with id_"
+    sql: |
+      SELECT table_name || '.' || column_name
+      FROM information_schema.columns
+      WHERE table_schema = 'main'
+        AND column_name NOT LIKE 'id_%'
+        AND column_name LIKE '%_id'
+      LIMIT 1

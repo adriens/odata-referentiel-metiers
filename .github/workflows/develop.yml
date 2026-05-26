@@ -21,11 +21,26 @@ jobs:
           fetch-depth: 0
 
       - uses: opt-nc/setup-duckdb-action@v1.2.6
+      - uses: schemacrawler/SchemaCrawler-Action@v17.11.1
 
       - name: Load DuckDB database
         run: |
           mkdir dist
           duckdb dist/ref-metiers-opt-nc.duckdb < src/duck.sql
+
+      - name: Run SchemaCrawler Action with specified command-line
+        uses: schemacrawler/SchemaCrawler-Action@v17.11.1
+        with:
+          entrypoint: /schemacrawler.sh
+          args: >
+            --config-file=etc/schemacrawler.config.properties  \
+            --command=schema \
+            --info-level=standard \
+            --driver=org.duckdb.DuckDBDriver \
+            --url="jdbc:duckdb:ref-metiers-opt-nc.duckdb" \
+            --table-types=TABLE \
+            --output-format=png \
+            --output-file=ref-metiers-opt-nc.png
 
       - name: update output repository and push to develop
         if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
